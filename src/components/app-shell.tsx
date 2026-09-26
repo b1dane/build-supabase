@@ -1,8 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Dashboard from "@/components/dashboard";
-import Btc15mPaperSimulator from "@/components/btc15m-paper-simulator";
+import dynamic from "next/dynamic";
+
+const Dashboard = dynamic(() => import("@/components/dashboard"), {
+  ssr: false,
+  loading: () => <div className="py-20 text-center text-slate-400">Loading dashboard…</div>,
+});
+
+const Btc15mPaperSimulator = dynamic(() => import("@/components/btc15m-paper-simulator"), {
+  ssr: false,
+  loading: () => <div className="py-20 text-center text-slate-400">Loading paper simulator…</div>,
+});
 
 export default function Home() {
   const [tab, setTab] = useState<"stage2" | "stage1">("stage2");
